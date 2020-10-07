@@ -1,0 +1,27 @@
+From 962d35ba9d9e8960c57c5f9edf446b82cae7707a Mon Sep 17 00:00:00 2001
+From: Christophe Priouzeau <christophe.priouzeau@st.com>
+Date: Tue, 6 Oct 2020 15:12:12 +0200
+Subject: [PATCH] support-command-with-parameter-for-efi_cc
+
+Signed-off-by: Christophe Priouzeau <christophe.priouzeau@st.com>
+---
+ src/boot/efi/meson.build | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
+index c1fe04597b..1d4765d6c5 100644
+--- a/src/boot/efi/meson.build
++++ b/src/boot/efi/meson.build
+@@ -44,6 +44,9 @@ if conf.get('ENABLE_EFI') == 1 and get_option('gnu-efi') != 'false'
+         if efi_cc.length() == 0
+                 efi_cc = cc.cmd_array()
+         endif
++        if efi_cc[0].split(' ').length() > 1
++                efi_cc = efi_cc[0].split(' ')
++        endif
+         efi_ld = get_option('efi-ld')
+         if efi_ld == ''
+                 efi_ld = find_program('ld', required: true)
+-- 
+2.17.1
+
